@@ -30,12 +30,14 @@ public class ATMService {
     }
 
     public void performWithdrawAmount(int amount) {
-        if (amount > maxWithdrawAmount) {
-            throw new MaxWithdrawalExceededException("Cannot withdraw more than " + maxWithdrawAmount);
-        } else if (amount > accountComponent.checkAccountBalance()) {
-            throw new InsufficientFundsException("Withdrawal amount exceeds the account balance");
-        } else if (amount < minAmount) {
+        if (amount < minAmount) {
             throw new InvalidAmountException("Invalid withdrawal amount");
+        }
+        if (amount > maxWithdrawAmount) {
+            throw new MaxWithdrawalExceededException("Invalid withdrawal amount");
+        }
+        if (amount > accountComponent.checkAccountBalance()) {
+            throw new InsufficientFundsException("Withdrawal amount exceeds the account balance");
         }
         accountComponent.withdrawAmount(amount);
     }
