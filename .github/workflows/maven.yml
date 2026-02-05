@@ -30,6 +30,11 @@ jobs:
       - name: Build with Maven
         run: mvn -B package --file pom.xml
 
+      - name: Start Spring Boot app
+        run: |
+          nohup mvn spring-boot:run &
+          sleep 15
+
       - name: Start server
         run: |
           java -jar target/your-app.jar &
